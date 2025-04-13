@@ -14,11 +14,18 @@
   "license": "ISC",
   "author": "Prajjwal",
   "type": "commonjs",
-  "main": "app.js",
   "scripts": {
     "test": "jest"
   },
   "devDependencies": {
     "parcel": "^2.14.4"
-  }
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "browserslist": [
+    "last 2 versions"
+    
+  ]
 }
