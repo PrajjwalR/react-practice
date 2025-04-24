@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react'
 
 const Body = () => {
     let [listOfRestaurants, setListOfRestaurants] = useState([]);
+    let [searchText, setSearchText] = useState("")
+    let [allRestaurants, setAllRestaurants] = useState([])
 
     useEffect(()=>{
         fetchData();
@@ -23,6 +25,7 @@ const Body = () => {
             )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
             
             setListOfRestaurants(restaurantList);
+            setAllRestaurants(restaurantList); 
         } catch (error) {
             console.error("Error fetching data:", error);
             setListOfRestaurants(resList);
@@ -32,6 +35,20 @@ const Body = () => {
     return listOfRestaurants.length === 0 ? <Shimmer /> : (
         <div className='body'>  
             <div className='filter'>
+                <div className='search'>
+                    <input type="text"  className='search-box' value={searchText} onChange={(e)=>{
+                      setSearchText(e.target.value)  
+                    }}/>
+                    <button className='search-btn' onClick={() => {
+                        const filteredRestaurants = allRestaurants.filter((res) =>
+                            res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                        );
+                        setListOfRestaurants(filteredRestaurants);
+                    }}>
+                        Search
+                    </button>
+
+                </div>
                 <button className='filter-btn' 
                 onClick={()=>{
                     const filteredList = listOfRestaurants.filter((res)=>res.info.avgRating > 4);
